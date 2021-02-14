@@ -5,6 +5,7 @@ import com.example.oklaski.services.TesterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,8 @@ public class TesterController {
     @Autowired
     private TesterService testerService;
 
-    @GetMapping("/byBugs")
-    public List<TesterBugDTO> getTestersByBugs(@PathParam("countries") List<String> countries, @PathParam("descriptions") List<String> descriptions) {
+    @GetMapping("/byBugs/{countries}/{descriptions}")
+    public List<TesterBugDTO> getTestersByBugs(@PathVariable("countries") List<String> countries, @PathVariable("descriptions") List<String> descriptions) {
         return testerService.getTestersByBugs(countries, descriptions);
     }
 }

@@ -1,8 +1,6 @@
 package com.example.oklaski.services;
 
 import com.example.oklaski.dto.TesterBugDTO;
-import com.example.oklaski.entites.Bug;
-import com.example.oklaski.entites.Tester;
 import com.example.oklaski.mapper.TesterMapper;
 import com.example.oklaski.repositories.BugRepository;
 import com.example.oklaski.repositories.TesterRepository;
