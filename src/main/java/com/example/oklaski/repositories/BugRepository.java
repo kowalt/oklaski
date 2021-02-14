@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface BugRepository extends JpaRepository<Bug,Long> {
 
-    @Query("SELECT COUNT(*) FROM Device d JOIN Tester t ")
+    @Query("SELECT COUNT(*) FROM Tester FETCH JOIN  JOIN Tester t ON u.id = t.id")
     Integer countByDeviceAndTester(List<String> description, Long testerId);
 }
