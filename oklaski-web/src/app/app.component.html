@@ -1,15 +1,27 @@
-<form class="example-form">
+<form class="tester-matching-form">
   <mat-form-field class="example-full-width">
-    <mat-label>Number</mat-label>
+    <mat-label>Country</mat-label>
     <input type="text"
-           placeholder="Pick one"
-           aria-label="Number"
+           placeholder="Pick country"
            matInput
-           [formControl]="myControl"
-           [matAutocomplete]="auto">
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
+           [formControl]="countryFormControl"
+           [matAutocomplete]="auto1">
+    <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+      <mat-option *ngFor="let optionCountry of filteredOptionsCountry | async" [value]="optionCountry">
+        {{optionCountry}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Device</mat-label>
+    <input type="text"
+           placeholder="Pick device"
+           matInput
+           [formControl]="deviceFormControl"
+           [matAutocomplete]="auto2">
+    <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+      <mat-option *ngFor="let optionDevice of filteredOptionsDevices | async" [value]="optionDevice">
+        {{optionDevice}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
