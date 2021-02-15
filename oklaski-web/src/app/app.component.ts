@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {map, startWith} from "rxjs/operators";
-import {Observable} from "rxjs";
 import {TesterService} from "./services/tester.service";
 import {TesterBugDataSource} from "./datasources/tester-bug-datasource";
 
@@ -28,9 +26,6 @@ export class AppComponent implements OnInit {
     'iPhone 3'
   ];
 
-  filteredOptionsCountry: Observable<string[]> | undefined;
-  filteredOptionsDevices: Observable<string[]> | undefined;
-
   devicesCriteria: string[] = ['ALL'];
   countriesCriteria: string[] = ['ALL'];
 
@@ -43,34 +38,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filteredOptionsCountry = this.countryFormControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value, this.countries))
-    );
-
-    this.filteredOptionsDevices = this.deviceFormControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value, this.devices))
-    );
-
     this.dataSource.loadTesterBug(this.countriesCriteria, this.devicesCriteria);
   }
 
-  private _filter(value: string, list: string[]): string[] {
-    const filterValue = value.toLowerCase();
+  onSearch() {
+    this.countriesCriteria = (this.countryFormControl.value && this.countryFormControl.value.length) ? this.countryFormControl.value : ['ALL'];
+    this.devicesCriteria = (this.deviceFormControl.value && this.deviceFormControl.value.length) ? this.deviceFormControl.value : ['ALL'];
 
-    return list.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-  }
-
-  addCountryRule() {
-    this.countriesCriteria = this.countriesCriteria.filter(c => c !== 'ALL');
-    this.countriesCriteria.push(this.countryFormControl?.value);
-    this.countryFormControl.reset();
-  }
-
-  addDeviceRule() {
-    this.countriesCriteria = this.countriesCriteria.filter(c => c !== 'ALL');
-    this.countriesCriteria.push(this.countryFormControl?.value);
-    this.countryFormControl.reset();
+    this.dataSource.loadTesterBug(this.countriesCriteria, this.devicesCriteria)
   }
 }

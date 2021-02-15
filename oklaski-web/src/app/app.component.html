@@ -11,6 +11,9 @@
       <mat-option *ngFor="let device of devices" [value]="device">{{device}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <button type="button" mat-raised-button color="primary" (click)="onSearch()">
+    Search
+  </button>
 </form>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

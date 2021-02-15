@@ -2,6 +2,7 @@
   min-width: 150px;
   max-width: 500px;
   width: 100%;
+  display: flex;
 }
 
 .example-full-width {
@@ -10,8 +11,4 @@
 
 table {
   width: 100%;
-}
-
-.rule-autocomplete-container {
-  display: flex;
 }
