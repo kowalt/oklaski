@@ -23,6 +23,22 @@ public class TesterService {
     public TesterMapper testerMapper;
 
     public List<TesterBugDTO> getTestersByBugs(List<String> countries, List<String> descriptions) {
+
+        if (countries.get(0).equals("ALL") && descriptions.get(0).equals("ALL")) {
+            return testerRepository.findAll().stream()
+                    .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByTester(t.getId())))
+                    .collect(Collectors.toList());
+        }
+        else if (countries.get(0).equals("ALL")) {
+            return testerRepository.findAll().stream()
+                    .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByDeviceAndTester(descriptions, t.getId())))
+                    .collect(Collectors.toList());
+        } else if (descriptions.get(0).equals("ALL")) {
+            return testerRepository.findByCountryIn(countries).stream()
+                    .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByDevice(descriptions)))
+                    .collect(Collectors.toList());
+        }
+
         return testerRepository.findByCountryIn(countries).stream()
                 .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByDeviceAndTester(descriptions, t.getId())))
                 .collect(Collectors.toList());

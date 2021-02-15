@@ -12,4 +12,10 @@ public interface BugRepository extends JpaRepository<Bug,Long> {
 
     @Query("SELECT COUNT(b) FROM Bug b JOIN b.device d WHERE d.description in :descriptions AND b.tester.id = :testerId")
     Integer countByDeviceAndTester(List<String> descriptions, Long testerId);
+
+    @Query("SELECT COUNT(b) FROM Bug b WHERE b.tester.id = :testerId")
+    Integer countByTester(Long testerId);
+
+    @Query("SELECT COUNT(b) FROM Bug b JOIN b.device d WHERE d.description in :descriptions")
+    Integer countByDevice(List<String> descriptions);
 }

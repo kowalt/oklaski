@@ -27,15 +27,45 @@
   </mat-form-field>
   <mat-list>
     <div mat-subheader>Country rules list</div>
-    <mat-list-item *ngFor="let countryRule of countriesRules">
+    <mat-list-item *ngFor="let countryRule of countriesCriteria">
       <mat-icon mat-list-icon>public</mat-icon>
       <div mat-line>{{countryRule}}</div>
     </mat-list-item>
     <mat-divider></mat-divider>
     <div mat-subheader>Device rules list</div>
-    <mat-list-item *ngFor="let deviceRule of devicesRules">
+    <mat-list-item *ngFor="let deviceRule of devicesCriteria">
       <mat-icon mat-list-icon>laptop_mac</mat-icon>
       <div mat-line>{{deviceRule}}</div>
     </mat-list-item>
   </mat-list>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let testerBug"> {{testerBug.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef> First name </th>
+      <td mat-cell *matCellDef="let testerBug"> {{testerBug.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef> Last name </th>
+      <td mat-cell *matCellDef="let testerBug"> {{testerBug.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef> Country </th>
+      <td mat-cell *matCellDef="let testerBug"> {{testerBug.country}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numOfBugs">
+      <th mat-header-cell *matHeaderCellDef> Number of bugs </th>
+      <td mat-cell *matCellDef="let testerBug"> {{testerBug.numOfBugs}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </form>

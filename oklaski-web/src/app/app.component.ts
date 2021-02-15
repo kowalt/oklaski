@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {TesterService} from "./services/tester.service";
+import {TesterBugDataSource} from "./datasources/tester-bug-datasource";
 
 @Component({
   selector: 'app-root',
@@ -29,8 +31,16 @@ export class AppComponent implements OnInit {
   filteredOptionsCountry: Observable<string[]> | undefined;
   filteredOptionsDevices: Observable<string[]> | undefined;
 
-  devicesRules: string[] = ["ALL"];
-  countriesRules: string[] = ["ALL"];
+  devicesCriteria: string[] = ["ALL"];
+  countriesCriteria: string[] = ["ALL"];
+
+  displayedColumns = ['id', 'firstName', 'lastName', 'country', 'numOfBugs'];
+
+  dataSource: TesterBugDataSource;
+
+  constructor (private testerService: TesterService) {
+    this.dataSource = new TesterBugDataSource(this.testerService);
+  }
 
   ngOnInit() {
     this.filteredOptionsCountry = this.countryFormControl.valueChanges.pipe(
@@ -42,6 +52,8 @@ export class AppComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value, this.devices))
     );
+
+    this.dataSource.loadTesterBug(this.countriesCriteria, this.devicesCriteria);
   }
 
   private _filter(value: string, list: string[]): string[] {
