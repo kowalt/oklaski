@@ -29,6 +29,9 @@ export class AppComponent implements OnInit {
   filteredOptionsCountry: Observable<string[]> | undefined;
   filteredOptionsDevices: Observable<string[]> | undefined;
 
+  devicesRules: string[] = ["ALL"];
+  countriesRules: string[] = ["ALL"];
+
   ngOnInit() {
     this.filteredOptionsCountry = this.countryFormControl.valueChanges.pipe(
       startWith(''),

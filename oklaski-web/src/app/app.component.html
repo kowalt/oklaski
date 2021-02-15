@@ -25,4 +25,17 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+  <mat-list>
+    <div mat-subheader>Country rules list</div>
+    <mat-list-item *ngFor="let countryRule of countriesRules">
+      <mat-icon mat-list-icon>public</mat-icon>
+      <div mat-line>{{countryRule}}</div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <div mat-subheader>Device rules list</div>
+    <mat-list-item *ngFor="let deviceRule of devicesRules">
+      <mat-icon mat-list-icon>laptop_mac</mat-icon>
+      <div mat-line>{{deviceRule}}</div>
+    </mat-list-item>
+  </mat-list>
 </form>
