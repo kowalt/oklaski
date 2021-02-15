@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,20 +28,24 @@ public class TesterService {
         if (countries.get(0).equals("ALL") && descriptions.get(0).equals("ALL")) {
             return testerRepository.findAll().stream()
                     .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByTester(t.getId())))
+                    .sorted(Comparator.comparingInt(TesterBugDTO::getNumOfBugs).reversed())
                     .collect(Collectors.toList());
         }
         else if (countries.get(0).equals("ALL")) {
             return testerRepository.findAll().stream()
                     .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByDeviceAndTester(descriptions, t.getId())))
+                    .sorted(Comparator.comparingInt(TesterBugDTO::getNumOfBugs).reversed())
                     .collect(Collectors.toList());
         } else if (descriptions.get(0).equals("ALL")) {
             return testerRepository.findByCountryIn(countries).stream()
                     .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByDevice(descriptions)))
+                    .sorted(Comparator.comparingInt(TesterBugDTO::getNumOfBugs).reversed())
                     .collect(Collectors.toList());
         }
 
         return testerRepository.findByCountryIn(countries).stream()
                 .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByDeviceAndTester(descriptions, t.getId())))
+                .sorted(Comparator.comparingInt(TesterBugDTO::getNumOfBugs).reversed())
                 .collect(Collectors.toList());
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class TesterMapper {
     public TesterBugDTO toTesterBugDTO(Tester tester, Integer numOfBugs) {
         return TesterBugDTO.builder()
+                .id(tester.getId())
                 .firstName(tester.getFirstName())
                 .lastName(tester.getLastName())
                 .country(tester.getCountry())
