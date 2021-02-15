@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
   filteredOptionsCountry: Observable<string[]> | undefined;
   filteredOptionsDevices: Observable<string[]> | undefined;
 
-  devicesCriteria: string[] = ["ALL"];
-  countriesCriteria: string[] = ["ALL"];
+  devicesCriteria: string[] = ['ALL'];
+  countriesCriteria: string[] = ['ALL'];
 
   displayedColumns = ['id', 'firstName', 'lastName', 'country', 'numOfBugs'];
 
@@ -60,5 +60,17 @@ export class AppComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return list.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  addCountryRule() {
+    this.countriesCriteria = this.countriesCriteria.filter(c => c !== 'ALL');
+    this.countriesCriteria.push(this.countryFormControl?.value);
+    this.countryFormControl.reset();
+  }
+
+  addDeviceRule() {
+    this.countriesCriteria = this.countriesCriteria.filter(c => c !== 'ALL');
+    this.countriesCriteria.push(this.countryFormControl?.value);
+    this.countryFormControl.reset();
   }
 }

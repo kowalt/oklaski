@@ -1,41 +1,57 @@
 <form class="tester-matching-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Country</mat-label>
-    <input type="text"
-           placeholder="Pick country"
-           matInput
-           [formControl]="countryFormControl"
-           [matAutocomplete]="auto1">
-    <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
-      <mat-option *ngFor="let optionCountry of filteredOptionsCountry | async" [value]="optionCountry">
-        {{optionCountry}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <mat-label>Device</mat-label>
-    <input type="text"
-           placeholder="Pick device"
-           matInput
-           [formControl]="deviceFormControl"
-           [matAutocomplete]="auto2">
-    <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-      <mat-option *ngFor="let optionDevice of filteredOptionsDevices | async" [value]="optionDevice">
-        {{optionDevice}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <div class="rule-autocomplete-container">
+    <mat-form-field class="example-full-width">
+      <mat-label>Country</mat-label>
+      <input type="text"
+             placeholder="Pick country"
+             matInput
+             [formControl]="countryFormControl"
+             [matAutocomplete]="auto1">
+      <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+        <mat-option *ngFor="let optionCountry of filteredOptionsCountry | async" [value]="optionCountry">
+          {{optionCountry}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" type="button" (click)="addCountryRule()">+</button>
+  </div>
+  <div class="rule-autocomplete-container">
+    <mat-form-field class="example-full-width">
+      <mat-label>Device</mat-label>
+      <input type="text"
+             placeholder="Pick device"
+             matInput
+             [formControl]="deviceFormControl"
+             [matAutocomplete]="auto2">
+      <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+        <mat-option *ngFor="let optionDevice of filteredOptionsDevices | async" [value]="optionDevice">
+          {{optionDevice}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" type="button" (click)="addCountryRule()">+</button>
+  </div>
   <mat-list>
     <div mat-subheader>Country rules list</div>
     <mat-list-item *ngFor="let countryRule of countriesCriteria">
       <mat-icon mat-list-icon>public</mat-icon>
       <div mat-line>{{countryRule}}</div>
+      <div>
+        <div mat-line>
+          <button mat-mini-fab color="warn">-</button>
+        </div>
+      </div>
     </mat-list-item>
     <mat-divider></mat-divider>
     <div mat-subheader>Device rules list</div>
     <mat-list-item *ngFor="let deviceRule of devicesCriteria">
       <mat-icon mat-list-icon>laptop_mac</mat-icon>
       <div mat-line>{{deviceRule}}</div>
+      <div>
+        <div mat-line>
+          <button mat-mini-fab color="warn">-</button>
+        </div>
+      </div>
     </mat-list-item>
   </mat-list>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
