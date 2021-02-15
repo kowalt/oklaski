@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 })
 export class TesterService {
 
-  BASE_PATH: string = "localhost:8080/tester";
+  BASE_PATH: string = "http://localhost:8080/tester";
 
   constructor(private http: HttpClient) { }
 
