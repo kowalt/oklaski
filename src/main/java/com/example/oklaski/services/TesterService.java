@@ -30,15 +30,14 @@ public class TesterService {
                     .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByTester(t.getId())))
                     .sorted(Comparator.comparingInt(TesterBugDTO::getNumOfBugs).reversed())
                     .collect(Collectors.toList());
-        }
-        else if (countries.get(0).equals("ALL")) {
+        } else if (countries.get(0).equals("ALL")) {
             return testerRepository.findAll().stream()
                     .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByDeviceAndTester(descriptions, t.getId())))
                     .sorted(Comparator.comparingInt(TesterBugDTO::getNumOfBugs).reversed())
                     .collect(Collectors.toList());
         } else if (descriptions.get(0).equals("ALL")) {
             return testerRepository.findByCountryIn(countries).stream()
-                    .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByDevice(descriptions)))
+                    .map(t -> testerMapper.toTesterBugDTO(t, bugRepository.countByTester(t.getId())))
                     .sorted(Comparator.comparingInt(TesterBugDTO::getNumOfBugs).reversed())
                     .collect(Collectors.toList());
         }
