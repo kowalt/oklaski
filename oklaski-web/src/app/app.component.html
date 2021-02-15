@@ -1,87 +1,44 @@
 <form class="tester-matching-form">
-  <div class="rule-autocomplete-container">
-    <mat-form-field class="example-full-width">
-      <mat-label>Country</mat-label>
-      <input type="text"
-             placeholder="Pick country"
-             matInput
-             [formControl]="countryFormControl"
-             [matAutocomplete]="auto1">
-      <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
-        <mat-option *ngFor="let optionCountry of filteredOptionsCountry | async" [value]="optionCountry">
-          {{optionCountry}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <button mat-mini-fab color="primary" type="button" (click)="addCountryRule()">+</button>
-  </div>
-  <div class="rule-autocomplete-container">
-    <mat-form-field class="example-full-width">
-      <mat-label>Device</mat-label>
-      <input type="text"
-             placeholder="Pick device"
-             matInput
-             [formControl]="deviceFormControl"
-             [matAutocomplete]="auto2">
-      <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-        <mat-option *ngFor="let optionDevice of filteredOptionsDevices | async" [value]="optionDevice">
-          {{optionDevice}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <button mat-mini-fab color="primary" type="button" (click)="addCountryRule()">+</button>
-  </div>
-  <mat-list>
-    <div mat-subheader>Country rules list</div>
-    <mat-list-item *ngFor="let countryRule of countriesCriteria">
-      <mat-icon mat-list-icon>public</mat-icon>
-      <div mat-line>{{countryRule}}</div>
-      <div>
-        <div mat-line>
-          <button mat-mini-fab color="warn">-</button>
-        </div>
-      </div>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <div mat-subheader>Device rules list</div>
-    <mat-list-item *ngFor="let deviceRule of devicesCriteria">
-      <mat-icon mat-list-icon>laptop_mac</mat-icon>
-      <div mat-line>{{deviceRule}}</div>
-      <div>
-        <div mat-line>
-          <button mat-mini-fab color="warn">-</button>
-        </div>
-      </div>
-    </mat-list-item>
-  </mat-list>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let testerBug"> {{testerBug.id}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef> First name </th>
-      <td mat-cell *matCellDef="let testerBug"> {{testerBug.firstName}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef> Last name </th>
-      <td mat-cell *matCellDef="let testerBug"> {{testerBug.lastName}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="country">
-      <th mat-header-cell *matHeaderCellDef> Country </th>
-      <td mat-cell *matCellDef="let testerBug"> {{testerBug.country}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="numOfBugs">
-      <th mat-header-cell *matHeaderCellDef> Number of bugs </th>
-      <td mat-cell *matCellDef="let testerBug"> {{testerBug.numOfBugs}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <mat-form-field appearance="fill">
+    <mat-label>Countries</mat-label>
+    <mat-select [formControl]=countryFormControl multiple>
+      <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Devices</mat-label>
+    <mat-select [formControl]=deviceFormControl multiple>
+      <mat-option *ngFor="let device of devices" [value]="device">{{device}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Id </th>
+    <td mat-cell *matCellDef="let testerBug"> {{testerBug.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef> First name </th>
+    <td mat-cell *matCellDef="let testerBug"> {{testerBug.firstName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef> Last name </th>
+    <td mat-cell *matCellDef="let testerBug"> {{testerBug.lastName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="country">
+    <th mat-header-cell *matHeaderCellDef> Country </th>
+    <td mat-cell *matCellDef="let testerBug"> {{testerBug.country}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="numOfBugs">
+    <th mat-header-cell *matHeaderCellDef> Number of bugs </th>
+    <td mat-cell *matCellDef="let testerBug"> {{testerBug.numOfBugs}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
